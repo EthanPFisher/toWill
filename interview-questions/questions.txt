@@ -1,0 +1,7 @@
+- difference between undefined and not defined in js:
+undefined is the value of avariable that has been declared but does not reference anything, while not defined would refer to something that has not been declared.
+
+- characteristics of an asynchronous function:
+runs in the background while other synchronous code continues to run.
+can be followed by a "promise" like .then() which only runs after the asynchronous code has finished running.
+usually relies on an outside source for a response before continuing (user input, server response, etc.)

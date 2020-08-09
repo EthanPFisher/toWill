@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scope</title>
+</head>
+<body>
+
+  <h2>Check console to see the madness!</h2>
+
+  <script>
+    // LEXICAL SCOPING
+
+    // GLOBAL SCOPE
+    // global variables
+    var a = 1;
+    var b = 2;
+    var c = 3;
+
+    // new lexical scope is defined when we create a new function
+    var outerFunction = function() {
+      // outerFunction LOCAL SCOPE
+      // access to outerFunction local scope and the global scope
+
+      // variables local to outerFunction()
+      var x = 5;
+      console.log('inside outerFunction')
+
+      // new lexical scope is defined when we create a new function
+      var nestedFunction = function() {
+      // nestedFunction LOCAL SCOPE
+      // access to global scope
+      // access to multilple localities -> nestedFunction(), outerFunction() scope
+    
+      // variables local to nestedFunction()
+        var y = 7;
+        var z = 10;
+        // What will this print? (x = 5)
+        console.log("X: " + x);
+
+        // What will this print? (y = 7)
+        console.log("Y: " + y);
+
+        
+        // What will this print? (z = 10)
+        console.log("Z (inside): " + z);
+
+
+      };
+      // returns the value assignment of variable nestedFunction which is the function 
+      return nestedFunction;
+    };
+    // we when invoke the outerFunction on line 47, all statements inside the local scope (i.e. console.log() and variable declarations) will be executed
+    // return nestedFunction; => this statement will return the value, not the execution, of nestedFunction. In turn, we assign the value of myFunction to the value assignment of nestedFunction
+    var myFunction = outerFunction();
+    console.log('myFunction', myFunction)
+    // this will invoke nestedFunction() and execute the statements inside
+    myFunction();
+
+    // What will this print? (z is undefined)
+    // z is not visible in the global scope
+    console.log("Z (outside): " + z);
+
+</script>
+
+</body>
+</html>

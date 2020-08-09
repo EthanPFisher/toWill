@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Closure</title>
+</head>
+<body>
+  <h2 data-number='100'>Check console to see the madness!</h2>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script>
+    // declare an object named cat 
+    // setting a variable eqaul to curly braces {} denote that this variable DataType an 'object'
+    // console.log(this) // outputs => window object
+    var cat = {
+
+      // 4 keys to the cat object: name, color, age, and printInfo
+      name: "Gus",
+      color: "gray",
+      age: 15,
+
+      // printInfo is a method, not a function, of the cat object
+      printInfo: function() {
+      console.log("inside printInfo()");
+
+      // ONLY *OBJECTS* can call upon methods
+      // ex. Here we use jquery's $ to select the h2 html *object* and then we use jquery's .text() method to assign text
+      $('h2').text('This is the United States of Objects. I am the President, I am the King')
+      console.log(typeof $('h2')) // outputs => 'object'
+
+        // IMPORTANT: The 'this' reference ALWAYS refers to and holds the value of an *OBJECT* and is usually used inside a function or a method
+        // ex. of this being used inside a function
+        $('h2').on('click', function(){
+          // 'this' refers to the h2 html object
+          alert("It's 'THIS' baby we live ! " + $(this).attr('data-number') + '%')
+        })
+
+        // ex. of 'this' being used inside a method of an object
+        // when an object invokes the 'this' Function, (i.e. cat.printInfo()) the value of 'this' is actually assigned exclusively based on the object that invokes the 'this' Function
+        // What will this print? (cat "Object")
+        console.log(this)
+
+        // What will this print? ("Name: Gus Color: gray Age: 15")
+        console.log("Name:", this.name, "Color:", this.color, "Age:", this.age);
+
+        // BINDING METHODS
+        // assigning 'this' to a variable in nestedFunction() parent scope, will make the value of the cat object accessible within it's own scope
+        // var self = this;
+        // var that = this;
+        var nestedFunction = function() {
+          // console.log(that, self) // outputs => cat "Object"
+
+          console.log("inside nestedFunction()");
+
+          // What will this print? ("Window")
+          // 'this' Function holds the value of the 'window' in functions that are not *BOUND* to any object
+          console.log(this);
+
+          // What will this print? ("Name:  Color: undefined Age: undefined")
+          console.log("Name:", this.name, "Color:", this.color, "Age:", this.age);
+        }
+        // ADDL. BINDING METHODS
+        // .bind(this)
+        // nestedFunction.apply(this)
+        // nestedFunction.call(this)
+
+        nestedFunction()
+      }
+    };
+  
+    // calls the printInfo function. Which subsequently calls the nestedFunction()
+    cat.printInfo();
+
+
+
+
+</script>
+
+</body>
+</html>
